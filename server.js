@@ -44,7 +44,7 @@ const server = http.createServer((req, res) => {
           };
           jwt.login(payload).then((token) => {
             res.writeHead(200, {
-              "Set-Cookie": `token=${token}; HttpOnly; Secure; Max-Age=60`,
+              "Set-Cookie": `token=${token}; HttpOnly; SameSite=Lax; Secure; Max-Age=60`,
               "Content-Type": "application/json",
             });
             res.end(JSON.stringify({ message: "Logged in successfully" }));
