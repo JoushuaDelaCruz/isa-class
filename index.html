@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const loginForm = document.getElementById('loginForm');
+  const logoutLabel = document.getElementById('logoutLabel');
+  const getSomethingButton = document.getElementById('getSomething');
+
+  loginForm.onsubmit = function(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          loginForm.style.display = 'none';
+          logoutLabel.style.display = 'block';
+          logoutLabel.textContent = 'Logout';
+        } else {
+          alert('Login failed: ' + xhr.responseText);
+        }
+      }
+    };
+    xhr.open('POST', 'http://localhost:3000/login', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({ username, password }));
+  };
+  logoutLabel.onclick = function() {
+    // Implement logout functionality here if needed.
+  };
+  getSomethingButton.onclick = function() {
+    const xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        alert(xhr.responseText);
+      }
+    };
+    xhr.open('GET', 'http://localhost:3000/something', true);
+    xhr.send();
+  };
+  // Initial setup: hide the logout label and ensure 
+  //the getSomething button is visible
+  logoutLabel.style.display = 'none';
+  getSomethingButton.style.display = 'block';
+});/**  Generated mostly by chatGPT ver. 4 **/
+</script>
+</head>
+<body>
+<div id="loginContainer">
+  <form id="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <input type="submit" value="Login">
+  </form>
+  <label id="logoutLabel" style="display:none; cursor:pointer;">Logout</label>
+</div>
+
+<button id="getSomething" style="display:block;">Get Something</button>
+</body>
+</html>

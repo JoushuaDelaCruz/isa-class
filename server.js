@@ -8,7 +8,10 @@ const server = http.createServer((req, res) => {
   // if you run the client from sth like file:///C:/nodejs/10httonlyCookie1/index.html
   // it would mean HTML file is being served via the file:// protocol directly from your filesystem rather than over HTTP or HTTPS.
   console.log("Request origin:", req.headers.origin);
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Adjust the port if necessary
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://655ce67a6f5e5515391c691d--ubiquitous-taffy-4e6ba3.netlify.app"
+  ); // Adjust the port if necessary
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
